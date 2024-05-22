@@ -18,6 +18,7 @@ class ClientController extends Controller
     public function index()
     {
         return ClientResource::collection(Client::with('groups')->get());
+
     }
 
 
@@ -30,19 +31,19 @@ class ClientController extends Controller
     public function store(Request $request)
     {
       $fieldsValue = $request->all();
-      $clients = Client::create([
+      $client = Client::create([
           "client_child_fio" => $fieldsValue['client_child_fio'],
           "client_child_birth" => $fieldsValue['client_child_birth'],
           "client_parent_fio" => $fieldsValue['client_parent_fio'],
           "client_parent_phone" => $fieldsValue['client_parent_phone'],
-          "client_parent_email" => $fieldsValue['client_parent_email']
+          "client_parent_email" => $fieldsValue['client_parent_email'],
+          "client_parent_amount" => $fieldsValue['client_parent_amount']
        ]);
-
+       
+      // добавляем группу у клиента 
       $group = $fieldsValue['group_id'];
-      $clients->groups()->attach($group);
-
-      return new ClientResource($clients);
-
+      $client->groups()->attach($group);
+      return new ClientResource($client);
     }
 
     /**
@@ -64,9 +65,26 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,  $id)
     {
-        //
+
+        $client = Client::with('groups')->findOrFail($id);
+        $fieldsValue = $request->all();
+
+        $client->client_child_fio = $fieldsValue['client_child_fio'];
+        $client->client_child_birth = $fieldsValue['client_child_birth'];
+        $client->client_parent_fio = $fieldsValue['client_parent_fio'];
+        $client->client_parent_phone = $fieldsValue['client_parent_phone'];
+        $client->client_parent_email = $fieldsValue['client_parent_email'];
+        $client->client_parent_amount = $fieldsValue['client_parent_amount'];
+
+        // обновляем связану модель
+        $group = $fieldsValue['group_id'];
+        $client->groups()->sync($group);
+        $client->save();
+        $client->refresh();
+
+        return new ClientResource($client);
     }
 
     /**
@@ -78,7 +96,9 @@ class ClientController extends Controller
     public function destroy(Request $request, $id)
     {
         $clients = Client::findOrFail($id);
-        if($clients->delete()) return response(null, 204);
+        if($clients->delete())
+        
+        return response(null, 204);
 
     }
 }

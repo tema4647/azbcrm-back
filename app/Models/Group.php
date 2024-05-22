@@ -10,21 +10,16 @@ class Group extends Model
     use HasFactory;
 
     public function clients(){
-
-        // return $this->belongsToMany(Client::class, 'client_group', 'group_id', 'client_id' );
         return $this->belongsToMany(Client::class);
-
-
     }
-    public $timestamps = false;
+    // public $timestamps = false;
 
     protected $table = "groups";
-    // protected $fillable = [
-    //     'id',
-    //     'gpoup_name'
-    // ];
+    protected $fillable = [
+        'id',
+        'group_name'
+    ];
 
-    // protected $guarded = [];
     protected $guarded = false;
     
 }

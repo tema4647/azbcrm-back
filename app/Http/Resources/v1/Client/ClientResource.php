@@ -22,8 +22,10 @@ class ClientResource extends JsonResource
           'client_parent_fio' => $this -> client_parent_fio,
           'client_parent_phone' => $this -> client_parent_phone,
           'client_parent_email' => $this -> client_parent_email,
-
-          'groups' => ClientGroupResource::collection($this -> groups)
+          'client_parent_amount' => $this -> client_parent_amount,
+          'groups' => ClientGroupResource::collection($this -> groups),
+          'created_at' => $this->created_at,
+          'updated_at' => $this->updated_at,
         ];
     }
 }

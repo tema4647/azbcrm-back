@@ -11,12 +11,11 @@ class Client extends Model
     use HasFactory;
 
     public function groups(){
-
-        // return $this->belongsToMany(Group::class, 'client_group', 'client_id', 'group_id' );
         return $this->belongsToMany(Group::class);
     }
 
-    public $timestamps = false;
+
+    // public $timestamps = false;
 
     protected $table = "clients";
     protected $fillable = [
@@ -25,9 +24,9 @@ class Client extends Model
         'client_child_birth',
         'client_parent_fio',
         'client_parent_phone',
-        'client_parent_email'
+        'client_parent_email',
+        'client_parent_amount'
     ];
 
-    // protected $guarded = [];
     protected $guarded = false;
 }

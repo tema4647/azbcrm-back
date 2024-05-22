@@ -15,7 +15,8 @@ class ClientGroupResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'group_name' => $this -> group_name,
+            'id' => $this -> id,
+            'group_name' => $this -> group_name
         ];
     }
 }

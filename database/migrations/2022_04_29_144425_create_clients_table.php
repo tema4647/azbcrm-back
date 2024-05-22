@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('client_parent_fio')->nullable();
             $table->char('client_parent_phone', 20)->nullable();
             $table->string('client_parent_email')->nullable()->unique();
+            $table->decimal('client_parent_amount', $precision = 8, $scale = 2)->nullable()->default(0);
             $table->timestamps($precision = 0);
         });
     }
