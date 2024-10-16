@@ -14,8 +14,10 @@ class Client extends Model
         return $this->belongsToMany(Group::class);
     }
 
-
-    // public $timestamps = false;
+    public function visits()
+    {
+      return $this->hasMany(Visit::class);
+    }
 
     protected $table = "clients";
     protected $fillable = [

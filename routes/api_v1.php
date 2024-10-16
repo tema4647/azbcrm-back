@@ -22,7 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResources([
     'groups' => GroupController::class,
-    'clients' => ClientController::class
+    'clients' => ClientController::class,
+    'visits' => VisitController::class,
+    'services' => ServiceController::class
 ]);
 
 

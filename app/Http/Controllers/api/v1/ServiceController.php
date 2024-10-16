@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\v1\Group\GroupResource;
-use App\Models\Group;
+use App\Http\Resources\v1\Service\ServiceResource;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-
-class GroupController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,9 @@ class GroupController extends Controller
      */
     public function index()
     {
-      return GroupResource::collection(Group::get());
+      return ServiceResource::collection(Service::get());
+        
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -29,56 +28,46 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-
         $fieldsValue = $request->all();
-        $groups = Group::create([
-            "group_name" => $fieldsValue['group_name'],
+        $services = Service::create([
+            "service_name" => $fieldsValue['service_name'],
+            "service_cost" => $fieldsValue['service_cost']
          ]);
 
-      return new GroupResource($groups);
-
+      return new ServiceResource($services);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Service $service)
     {
-        return response()->json(Group::findOrFail($id), 200);
-
+        //
     }
-
-    
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Service $service)
     {
-        $groups = Group::findOrFail($id);
-        $groups->fill($request->except(['id']));
-        $groups->save();
-        return response()->json($groups);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Service $service)
     {
-        $groups = Group::findOrFail($id);
-        if($groups->delete()) return response(null, 204);
-
+        //
     }
 }
-

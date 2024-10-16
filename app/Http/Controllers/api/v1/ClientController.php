@@ -85,6 +85,7 @@ class ClientController extends Controller
         $client->refresh();
 
         return new ClientResource($client);
+        // return $id;
     }
 
     /**
