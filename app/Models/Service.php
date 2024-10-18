@@ -9,11 +9,20 @@ class Service extends Model
 {
     use HasFactory;
 
+
+    public function tickets()
+    {
+      return $this->hasMany(Ticket::class);
+      // return $this->belongsTo(Ticket::class);
+
+    }
+    
+
      protected $table = "services";
      protected $fillable = [
          'id',
          'service_name',
-         'service_cost',
+         'service_cost'
      ];
  
      protected $guarded = false;

@@ -24,7 +24,8 @@ Route::apiResources([
     'groups' => GroupController::class,
     'clients' => ClientController::class,
     'visits' => VisitController::class,
-    'services' => ServiceController::class
+    'services' => ServiceController::class,
+    'tickets' => TicketController::class
 ]);
 
 

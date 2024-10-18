@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\v1\Service;
+namespace App\Http\Resources\v1\Ticket;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ServiceResource extends JsonResource
+class TicketServiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,7 @@ class ServiceResource extends JsonResource
             'id' => $this -> id,
             'service_name' => $this -> service_name,
             'service_cost' => $this -> service_cost,
-            'tickets' => ServiceTicketResource::collection($this -> tickets)
           ];
     }
 }
+

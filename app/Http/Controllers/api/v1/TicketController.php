@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\v1\Service\ServiceResource;
-use App\Models\Service;
+use App\Http\Resources\v1\Ticket\TicketResource;
 use Illuminate\Http\Request;
+use App\Models\Ticket;
 
-class ServiceController extends Controller
+class TicketController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-      return ServiceResource::collection(Service::get());
-        
+
+        return TicketResource::collection(Ticket::get());
+
     }
 
     /**
@@ -29,21 +30,24 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $fieldsValue = $request->all();
-        $services = Service::create([
-            "service_name" => $fieldsValue['service_name'],
-            "service_cost" => $fieldsValue['service_cost'],
-         ]);
-
-      return new ServiceResource($services);
+        $ticket = Ticket::create([
+          "ticket_name" => $fieldsValue['ticket_name'],
+          "ticket_cost" => $fieldsValue['ticket_cost'],
+          "ticket_discount" => $fieldsValue['ticket_discount'],
+          "ticket_visits" => $fieldsValue['ticket_visits'],
+          "service_id" => $fieldsValue['service_id']
+       ]);
+       
+      return new TicketResource($ticket);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function show(Service $service)
+    public function show(Ticket $ticket)
     {
         //
     }
@@ -52,10 +56,10 @@ class ServiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, Ticket $ticket)
     {
         //
     }
@@ -63,10 +67,10 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Service  $service
+     * @param  \App\Models\Ticket  $ticket
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function destroy(Ticket $ticket)
     {
         //
     }
