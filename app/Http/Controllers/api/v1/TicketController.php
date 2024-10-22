@@ -33,9 +33,11 @@ class TicketController extends Controller
         $ticket = Ticket::create([
           "ticket_name" => $fieldsValue['ticket_name'],
           "ticket_cost" => $fieldsValue['ticket_cost'],
+          "visit_cost" => $fieldsValue['visit_cost'],
           "ticket_discount" => $fieldsValue['ticket_discount'],
           "ticket_visits" => $fieldsValue['ticket_visits'],
           "service_id" => $fieldsValue['service_id']
+
        ]);
        
       return new TicketResource($ticket);

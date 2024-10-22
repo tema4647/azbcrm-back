@@ -19,13 +19,11 @@ class TicketResource extends JsonResource
           'id' => $this -> id,
           'ticket_name' => $this -> ticket_name,
           'ticket_cost' => $this -> ticket_cost,
+          'visit_cost' => $this -> visit_cost,
           'ticket_discount' => $this -> ticket_discount,
           'ticket_visits' => $this -> ticket_visits,
           'service_id' => $this -> service_id,
           'services' => TicketServiceResource::make($this -> services),
-
-
-
           'created_at' => $this->created_at,
           'updated_at' => $this->updated_at,
         ];

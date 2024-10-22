@@ -17,7 +17,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return ClientResource::collection(Client::with('groups')->get());
+        return ClientResource::collection(Client::with('groups')->with('tickets')->get());
     }
 
 

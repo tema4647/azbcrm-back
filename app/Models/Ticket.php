@@ -9,10 +9,12 @@ class Ticket extends Model
 {
     use HasFactory;
 
-
+    public function clients(){
+      return $this->belongsToMany(Client::class);
+    }
     public function services()
     {
-      return $this->hasOne(Service::class, 'id', 'service_id');
+      return $this->hasOne(Service::class, 'id'); 
 
     }
 
@@ -22,6 +24,7 @@ class Ticket extends Model
          'id',
          'ticket_name',
          'ticket_cost',
+         'visit_cost',
          'ticket_discount',
          'ticket_visits',
          'service_id'

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('ticket_name')->nullable();
             $table->integer('ticket_cost')->nullable();
+            $table->integer('visit_cost')->nullable();
             $table->integer('ticket_discount')->nullable();
             $table->integer('ticket_visits')->nullable();
             $table->BigInteger('service_id')->unsigned();
