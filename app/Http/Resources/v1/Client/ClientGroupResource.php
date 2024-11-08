@@ -3,6 +3,8 @@
 namespace App\Http\Resources\v1\Client;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\v1\Group\GroupServiceResource;
+
 
 class ClientGroupResource extends JsonResource
 {
@@ -16,7 +18,8 @@ class ClientGroupResource extends JsonResource
     {
         return [
             'id' => $this -> id,
-            'group_name' => $this -> group_name
+            'group_name' => $this -> group_name,
+            'services' => GroupServiceResource::make($this -> services)
         ];
     }
 }

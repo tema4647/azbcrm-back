@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\Http\Requests\StoreClientRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\Client\ClientResource;
-use App\Models\Client;
 use Illuminate\Http\Request;
+use App\Models\Client;
 
 
 class ClientController extends Controller
@@ -19,8 +18,8 @@ class ClientController extends Controller
     public function index()
     {
         return ClientResource::collection(Client::with('groups')->with('individuals')->with('tickets')->get());
-
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -30,7 +29,9 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
       $fieldsValue = $request->all();
+
       $client = Client::create([
           "client_child_fio" => $fieldsValue['client_child_fio'],
           "client_child_birth" => $fieldsValue['client_child_birth'],
@@ -50,33 +51,35 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Client  $client
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show($id)
     {
-        return new ClientResource($client);
+        return new ClientResource(Client::findOrFail($id));
     }
+
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request,  $id)
     {
-
+        $client = Client::with('groups')->findOrFail($id);
         $fieldsValue = $request->all();
-        $client->update([
-            'client_child_fio' => $fieldsValue['client_child_fio'],
-            'client_child_birth' => $fieldsValue['client_child_birth'],
-            'client_parent_fio' => $fieldsValue['client_parent_fio'],
-            'client_parent_phone' => $fieldsValue['client_parent_phone'],
-            'client_parent_email' => $fieldsValue['client_parent_email'],
-            'client_parent_amount' => $fieldsValue['client_parent_amount'],
-        ]);
+
+        $client->client_child_fio = $fieldsValue['client_child_fio'];
+        $client->client_child_birth = $fieldsValue['client_child_birth'];
+        $client->client_parent_fio = $fieldsValue['client_parent_fio'];
+        $client->client_parent_phone = $fieldsValue['client_parent_phone'];
+        $client->client_parent_email = $fieldsValue['client_parent_email'];
+        $client->client_parent_amount = $fieldsValue['client_parent_amount'];
+        $client->save();
+        
 
         // обновляем связану модель
         $group = $fieldsValue['group_id'];
@@ -84,17 +87,21 @@ class ClientController extends Controller
         $client->refresh();
 
         return new ClientResource($client);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Client  $client
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $client)
+    public function destroy(Request $request, $id)
     {
-            if($client->delete())
-            return response(null, 204);
+        $clients = Client::findOrFail($id);
+        if($clients->delete())
+        
+        return response(null, 204);
+
     }
 }

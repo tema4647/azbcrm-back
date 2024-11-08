@@ -14,7 +14,7 @@ class Ticket extends Model
     }
     public function services()
     {
-      return $this->hasOne(Service::class, 'id'); 
+      return $this->hasOne(Service::class, 'id', 'service_id'); 
 
     }
 

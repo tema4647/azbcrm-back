@@ -24,6 +24,7 @@ class ClientResource extends JsonResource
           'client_parent_email' => $this -> client_parent_email,
           'client_parent_amount' => $this -> client_parent_amount,
           'groups' => ClientGroupResource::collection($this -> groups),
+          'individuals' => ClientIndividualResource::collection($this -> individuals),
           'visits' => ClientVisitResource::collection($this -> visits),
           'tickets' => ClientTicketResource::collection($this -> tickets),
 

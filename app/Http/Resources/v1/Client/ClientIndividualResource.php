@@ -3,9 +3,10 @@
 namespace App\Http\Resources\v1\Client;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\v1\Individual\IndividualServiceResource;
 
 
-class ClientTicketResource extends JsonResource
+class ClientIndividualResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +18,8 @@ class ClientTicketResource extends JsonResource
     {
         return [
             'id' => $this -> id,
-            'ticket_name' => $this -> ticket_name,
-            'ticket_cost' => $this -> ticket_cost,
-            'visit_cost' => $this -> visit_cost,
-            'ticket_discount' => $this -> ticket_discount,
-            'ticket_visits' => $this -> ticket_visits,
-            'service_id' => $this -> service_id,
+            'individual_name' => $this -> individual_name,
+            'services' => IndividualServiceResource::make($this -> services)
         ];
     }
 }

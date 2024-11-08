@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\v1\Group\GroupResource;
-use Illuminate\Support\Facades\DB;
-use App\Models\Group;
+use App\Http\Resources\v1\Individual\IndividualResource;
+use App\Models\Individual;
+
 use Illuminate\Http\Request;
 
-
-class GroupController extends Controller
+class IndividualController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +17,9 @@ class GroupController extends Controller
      */
     public function index()
     {
-      return GroupResource::collection(Group::get());
-       
-    }
+        return IndividualResource::collection(Individual::get());
 
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -31,15 +29,13 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-
         $fieldsValue = $request->all();
-        $groups = Group::create([
-            "group_name" => $fieldsValue['group_name'],
+        $individuals = Individual::create([
+            "individual_name" => $fieldsValue['individual_name'],
             "service_id" => $fieldsValue['service_id'],
          ]);
 
-      return new GroupResource($groups);
-
+      return new IndividualResource($individuals);
     }
 
     /**
@@ -50,11 +46,8 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        return response()->json(Group::findOrFail($id), 200);
-
+        //
     }
-
-    
 
     /**
      * Update the specified resource in storage.
@@ -65,10 +58,7 @@ class GroupController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $groups = Group::findOrFail($id);
-        $groups->fill($request->except(['id']));
-        $groups->save();
-        return response()->json($groups);
+        //
     }
 
     /**
@@ -77,11 +67,8 @@ class GroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
-        $groups = Group::findOrFail($id);
-        if($groups->delete()) return response(null, 204);
-
+        //
     }
 }
-

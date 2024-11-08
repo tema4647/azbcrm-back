@@ -4,7 +4,7 @@ namespace App\Http\Resources\v1\Group;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GroupResource extends JsonResource
+class GroupServiceResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,9 @@ class GroupResource extends JsonResource
     {
         return [
             'id' => $this -> id,
-            'group_name' => $this -> group_name,
-            'service_id' => $this -> service_id,
-            'services' => GroupServiceResource::make($this -> services)
+            'service_name' => $this -> service_name,
+            'service_cost' => $this -> service_cost,
           ];
+    }
 }
-}
+

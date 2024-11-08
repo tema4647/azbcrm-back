@@ -14,6 +14,10 @@ class Client extends Model
         return $this->belongsToMany(Group::class);
     }
 
+    public function individuals(){
+        return $this->belongsToMany(Individual::class);
+    }
+
     public function tickets(){
         return $this->belongsToMany(Ticket::class);
     }
