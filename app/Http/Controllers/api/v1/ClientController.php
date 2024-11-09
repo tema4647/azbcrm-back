@@ -6,6 +6,7 @@ use App\Http\Requests\StoreClientRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\v1\Client\ClientResource;
 use App\Models\Client;
+use App\Models\Group;
 use Illuminate\Http\Request;
 
 
@@ -67,20 +68,20 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-
-        $fieldsValue = $request->all();
-        $client->update([
-            'client_child_fio' => $fieldsValue['client_child_fio'],
-            'client_child_birth' => $fieldsValue['client_child_birth'],
-            'client_parent_fio' => $fieldsValue['client_parent_fio'],
-            'client_parent_phone' => $fieldsValue['client_parent_phone'],
-            'client_parent_email' => $fieldsValue['client_parent_email'],
-            'client_parent_amount' => $fieldsValue['client_parent_amount'],
-        ]);
+        $groupId = $request['group_id'];
+        $fieldsToUpdate = $request->only([
+            'client_child_fio',
+            'client_child_birth',
+            'client_parent_fio',
+            'client_parent_phone' ,
+            'client_parent_email',
+            'client_parent_amount',
+            ]);
+            $client->fill(array_filter($fieldsToUpdate));
+            $client->save();
 
         // обновляем связану модель
-        $group = $fieldsValue['group_id'];
-        $client->groups()->sync($group);
+        $client->groups()->sync($groupId);
         $client->refresh();
 
         return new ClientResource($client);
