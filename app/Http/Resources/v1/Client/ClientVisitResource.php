@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Resources\v1\Client;
+use App\Http\Resources\v1\Visit\VisitServiceResource;
+
 
 
 
@@ -19,6 +21,7 @@ class ClientVisitResource extends JsonResource
         return [
             'id' => $this -> id,
             'client_id' => $this -> client_id,
+            'services' => VisitServiceResource::make($this -> services),
             'visit_date' => $this -> visit_date
         ];
     }

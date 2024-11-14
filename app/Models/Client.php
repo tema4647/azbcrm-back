@@ -27,6 +27,11 @@ class Client extends Model
       return $this->hasMany(Visit::class);
     }
 
+    public function transactions()
+    {
+      return $this->hasMany(Transaction::class);
+    }
+
     protected $table = "clients";
     protected $fillable = [
         'id',

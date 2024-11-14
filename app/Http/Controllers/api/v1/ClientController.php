@@ -69,6 +69,9 @@ class ClientController extends Controller
     public function update(Request $request, Client $client)
     {
         $groupId = $request['group_id'];
+        $individualId = $request['individual_id'];
+        $ticketId = $request['ticket_id'];
+
         $fieldsToUpdate = $request->only([
             'client_child_fio',
             'client_child_birth',
@@ -80,8 +83,17 @@ class ClientController extends Controller
             $client->fill(array_filter($fieldsToUpdate));
             $client->save();
 
-        // обновляем связану модель
-        $client->groups()->sync($groupId);
+        if($groupId){
+            $client->groups()->attach($groupId);
+        };
+        if($individualId){
+            $client->individuals()->attach($individualId);
+        };
+
+        if($ticketId){
+           $client->tickets()->attach($ticketId);
+        };
+
         $client->refresh();
 
         return new ClientResource($client);

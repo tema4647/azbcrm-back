@@ -26,7 +26,9 @@ Route::apiResources([
     'visits' => VisitController::class,
     'services' => ServiceController::class,
     'tickets' => TicketController::class,
-    'individuals' => IndividualController::class
+    'individuals' => IndividualController::class,
+    'transactions' => TransactionController::class
+
 ]);
 
 

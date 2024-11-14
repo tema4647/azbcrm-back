@@ -5,6 +5,7 @@ namespace App\Http\Resources\v1\Client;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
+
 class ClientResource extends JsonResource
 {
     /**
@@ -27,6 +28,7 @@ class ClientResource extends JsonResource
           'individuals' => ClientIndividualResource::collection($this -> individuals),
           'visits' => ClientVisitResource::collection($this -> visits),
           'tickets' => ClientTicketResource::collection($this -> tickets),
+          'transactions' => clientTransactionResource::collection($this -> transactions),
 
           'created_at' => $this->created_at,
           'updated_at' => $this->updated_at,

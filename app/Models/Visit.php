@@ -13,12 +13,20 @@ class Visit extends Model
         return $this->belongsTo(Client::class);
     }
 
+    public function services()
+    {
+      return $this->hasOne(Service::class, 'id', 'service_id'); 
+    }
+
     // public $timestamps = false;
 
     protected $table = "visits";
     protected $fillable = [
         'id',
         'client_id',
+        'service_id',
+        'group_id',
+        'individual_id',
         'visit_date'
     ];
 

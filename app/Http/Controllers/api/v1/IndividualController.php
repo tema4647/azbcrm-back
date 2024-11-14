@@ -69,6 +69,7 @@ class IndividualController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $individuals = Individual::findOrFail($id);
+        if($individuals->delete()) return response(null, 204);
     }
 }
