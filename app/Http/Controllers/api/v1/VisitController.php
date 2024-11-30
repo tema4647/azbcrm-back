@@ -32,6 +32,9 @@ class VisitController extends Controller
         $visits = Visit::create([
             "client_id" => $fieldsValue['client_id'],
             "service_id" => $fieldsValue['service_id'],
+            "group_id" => $fieldsValue['group_id'],
+            "individual_id" => $fieldsValue['individual_id'],
+
             "visit_date" => $fieldsValue['visit_date'],
          ]);
 

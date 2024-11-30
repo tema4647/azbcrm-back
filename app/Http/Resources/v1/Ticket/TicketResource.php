@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Resources\v1\Ticket;
-
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
@@ -24,6 +23,7 @@ class TicketResource extends JsonResource
           'ticket_visits' => $this -> ticket_visits,
           'service_id' => $this -> service_id,
           'services' => TicketServiceResource::make($this -> services),
+
           'created_at' => $this->created_at,
           'updated_at' => $this->updated_at,
         ];

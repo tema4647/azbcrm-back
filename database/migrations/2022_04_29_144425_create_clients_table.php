@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('client_child_fio')->nullable();
+            $table->string('client_child_fio');
             $table->date('client_child_birth')->nullable();
             $table->string('client_parent_fio')->nullable();
             $table->char('client_parent_phone', 20)->nullable();

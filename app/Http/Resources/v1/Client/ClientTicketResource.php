@@ -5,6 +5,7 @@ namespace App\Http\Resources\v1\Client;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 
+
 class ClientTicketResource extends JsonResource
 {
     /**
@@ -23,6 +24,8 @@ class ClientTicketResource extends JsonResource
             'ticket_discount' => $this -> ticket_discount,
             'ticket_visits' => $this -> ticket_visits,
             'service_id' => $this -> service_id,
+            'ticket_count' => $this->pivot->ticket_count,
+            'ticket_current_amount' => $this->pivot->ticket_current_amount
         ];
     }
 }

@@ -41,9 +41,10 @@ class ClientController extends Controller
           "client_parent_amount" => $fieldsValue['client_parent_amount']
        ]);
 
-      // добавляем группу у клиента 
+    // добавляем группу у клиента 
       $group = $fieldsValue['group_id'];
       $client->groups()->attach($group);
+
       
       return new ClientResource($client);
     }
@@ -67,10 +68,15 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Client $client)
-    {
+    {   
+        $sync = $request['sync'];
+        $detach = $request['detach'];
         $groupId = $request['group_id'];
         $individualId = $request['individual_id'];
         $ticketId = $request['ticket_id'];
+        $ticket_count = $request['ticket_count'];
+        $ticket_current_amount = $request['ticket_current_amount'];
+
 
         $fieldsToUpdate = $request->only([
             'client_child_fio',
@@ -91,8 +97,17 @@ class ClientController extends Controller
         };
 
         if($ticketId){
-           $client->tickets()->attach($ticketId);
-        };
+            if($sync == true){
+                $client->tickets()->syncWithoutDetaching([$ticketId => ['ticket_count' => $ticket_count, 'ticket_current_amount' => $ticket_current_amount]]);
+            } elseif($detach == true){
+                $client->tickets()->detach($ticketId);
+            } else{
+                $client->tickets()->attach($ticketId, ['ticket_count' => $ticket_count, 'ticket_current_amount' => $ticket_current_amount]);
+            }
+         };
+
+         
+
 
         $client->refresh();
 

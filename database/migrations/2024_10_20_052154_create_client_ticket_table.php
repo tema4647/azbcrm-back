@@ -14,10 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('client_ticket', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->BigInteger('client_id')->unsigned();
             $table->BigInteger('ticket_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
+            $table->BigInteger('ticket_count')->unsigned()->nullable();
+            $table->BigInteger('ticket_current_amount')->unsigned()->nullable();
         });
     }
 

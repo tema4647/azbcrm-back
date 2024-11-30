@@ -12,6 +12,7 @@ class Ticket extends Model
     public function clients(){
       return $this->belongsToMany(Client::class);
     }
+
     public function services()
     {
       return $this->hasOne(Service::class, 'id', 'service_id'); 

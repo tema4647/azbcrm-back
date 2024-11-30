@@ -4,7 +4,7 @@ namespace App\Http\Resources\v1\Visit;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class VisitResource extends JsonResource
+class VisitGroupResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,10 @@ class VisitResource extends JsonResource
     {
         return [
             'id' => $this -> id,
-            'client_id' => $this -> client_id,
-            'visit_date' => $this -> visit_date,
-            'services' => VisitServiceResource::make($this -> services),
-            'groups' => VisitGroupResource::make($this -> groups),
-            'individuals' => VisitIndividualResource::make($this -> individuals),
-
+            'group_name' => $this -> group_name,
+            'service_id' => $this -> service_id,
           ];
     }
 }
+
+

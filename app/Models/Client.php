@@ -19,7 +19,7 @@ class Client extends Model
     }
 
     public function tickets(){
-        return $this->belongsToMany(Ticket::class);
+        return $this->belongsToMany(Ticket::class)->using(ClientTicket::class)->withPivot('ticket_count', 'ticket_current_amount');
     }
 
     public function visits()

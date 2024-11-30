@@ -17,6 +17,14 @@ class Visit extends Model
     {
       return $this->hasOne(Service::class, 'id', 'service_id'); 
     }
+    public function groups()
+    {
+      return $this->hasOne(Group::class, 'id', 'group_id'); 
+    }
+    public function individuals()
+    {
+      return $this->hasOne(Individual::class, 'id', 'individual_id'); 
+    }
 
     // public $timestamps = false;
 

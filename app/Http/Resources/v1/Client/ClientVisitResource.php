@@ -2,6 +2,10 @@
 
 namespace App\Http\Resources\v1\Client;
 use App\Http\Resources\v1\Visit\VisitServiceResource;
+use App\Http\Resources\v1\Visit\VisitGroupResource;
+use App\Http\Resources\v1\Visit\VisitIndividualResource;
+
+
 
 
 
@@ -22,6 +26,8 @@ class ClientVisitResource extends JsonResource
             'id' => $this -> id,
             'client_id' => $this -> client_id,
             'services' => VisitServiceResource::make($this -> services),
+            'groups' => VisitGroupResource::make($this -> groups),
+            'individuals' => VisitIndividualResource::make($this -> individuals),
             'visit_date' => $this -> visit_date
         ];
     }
