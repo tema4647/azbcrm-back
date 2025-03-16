@@ -18,7 +18,6 @@ class TransactionController extends Controller
     public function index()
     {
         return TransactionResource::collection(Transaction::get());
-
     }
 
     /**

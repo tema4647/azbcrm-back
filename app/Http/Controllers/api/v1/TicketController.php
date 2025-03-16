@@ -74,6 +74,7 @@ class TicketController extends Controller
      */
     public function destroy(Ticket $ticket)
     {
-        //
+        if($ticket->delete())
+        return response(null, 204);
     }
 }

@@ -45,6 +45,9 @@ class ClientController extends Controller
       $group = $fieldsValue['group_id'];
       $client->groups()->attach($group);
 
+    // добавляем индивидуала у клиента 
+      $individualId = $fieldsValue['individual_id'];
+      $client->individuals()->attach($individualId);
       
       return new ClientResource($client);
     }
@@ -90,10 +93,18 @@ class ClientController extends Controller
             $client->save();
 
         if($groupId){
-            $client->groups()->attach($groupId);
+            if($detach == true){
+                $client->groups()->detach($groupId);
+            } else{
+                $client->groups()->attach($groupId);
+            }
         };
         if($individualId){
-            $client->individuals()->attach($individualId);
+            if($detach == true){
+                $client->individuals()->detach($individualId);
+            } else{
+                $client->individuals()->attach($individualId);
+            }
         };
 
         if($ticketId){
